@@ -15,7 +15,7 @@ export default function ProductList() {
     
     useEffect(()=>{
         let productService = new ProductService()
-        productService.getProducts().then(result=>setProducts(result.data))
+        productService.getProducts().then(result=>setProducts(result.data.data))
 
     },[]);
     
@@ -29,11 +29,12 @@ export default function ProductList() {
             <Table celled>
                 <Table.Header> 
                     <Table.Row>
-                        <Table.HeaderCell>userId</Table.HeaderCell>
-                        <Table.HeaderCell>id</Table.HeaderCell>
-                        <Table.HeaderCell>title</Table.HeaderCell>
-                        <Table.HeaderCell>body</Table.HeaderCell>
+                        <Table.HeaderCell>Ürün adı</Table.HeaderCell>
+                        <Table.HeaderCell>Birim fiyatı</Table.HeaderCell>
+                        <Table.HeaderCell>Stok adeti</Table.HeaderCell>
+                        <Table.HeaderCell>Açıklama</Table.HeaderCell>
                         <Table.HeaderCell>Kategori</Table.HeaderCell>
+                        <Table.HeaderCell>Ekle</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -41,10 +42,11 @@ export default function ProductList() {
                     {
                         products.map((product)=> (
                             <Table.Row key={product.id}>
-                                <Table.Cell><Link to={`/products/${product.title}`}>{product.userId}</Link></Table.Cell>
-                                <Table.Cell>{product.id}</Table.Cell>
-                                <Table.Cell>{product.title}</Table.Cell>
-                                <Table.Cell>{product.body}</Table.Cell>
+                                <Table.Cell><Link to={`/products/${product.productName}`}>{product.ProductId}</Link></Table.Cell>
+                                <Table.Cell>{product.unitPrice}</Table.Cell>
+                                <Table.Cell>{product.unitsInStock}</Table.Cell>
+                                <Table.Cell>{product.quantityPerUnit}</Table.Cell>
+                                <Table.Cell>{product.category.categoryName}</Table.Cell>
                                 <Table.Cell><Button onClick={() => handleAddToCart(product)}>Sepete Ekle</Button></Table.Cell>
                             </Table.Row>
                         ))
