@@ -1,23 +1,23 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Button, Card, Image } from 'semantic-ui-react'
 import ProductService from '../services/productService';
 
 export default function ProductDetail() {
 
-    let { title } = useParams()
+    let { name } = useParams()
 
     const [product, setProduct] = useState({});
-    
-    useEffect(()=>{
-        let productService = new ProductService()
-        productService.getByProductName(title).then(result=>setProduct(result.data))
 
-    },[]);
-    
+    useEffect(() => {
+        let productService = new ProductService()
+        productService.getByProductName(name).then(result => setProduct(result.data.data))
+
+    }, []);
+
     return (
         <div>
-            {/* {title} */}
+            {/* {name} */}
             <Card.Group>
                 <Card fluid>
                     <Card.Content>
@@ -26,8 +26,8 @@ export default function ProductDetail() {
                             size='mini'
                             src='/images/avatar/large/steve.jpg'
                         />
-                        <Card.Header>{product.getByProductName}</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
+                        <Card.Header>{product.productName}</Card.Header>
+                        <Card.Meta>{product.category.categoryName}</Card.Meta>
                         <Card.Description>
                             Steve wants to add you to the group <strong>best friends</strong>
                         </Card.Description>
@@ -35,11 +35,11 @@ export default function ProductDetail() {
                     <Card.Content extra>
                         <div className='ui two buttons'>
                             <Button basic color='green'>
-                                Approve
-          </Button>
+                                Sepete Ekle
+                            </Button>
                             <Button basic color='red'>
                                 Decline
-          </Button>
+                            </Button>
                         </div>
                     </Card.Content>
                 </Card>
